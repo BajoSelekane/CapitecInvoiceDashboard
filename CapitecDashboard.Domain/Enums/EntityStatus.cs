@@ -6,6 +6,8 @@ namespace CapitecDashboard.Domain.Enums
     {
         Pending = 1,
         Paid = 2,
-        Outstanding = 3
+        Outstanding = 3,
+        Deleted = 4,
+        Active =5
     }
 }
