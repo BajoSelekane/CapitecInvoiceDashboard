@@ -9,6 +9,8 @@
   <ItemGroup>
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Models\Request\Filters\" />
+    <Folder Include="Models\Responses\QueryResponse\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
