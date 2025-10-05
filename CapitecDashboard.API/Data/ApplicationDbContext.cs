@@ -9,5 +9,7 @@ namespace CapitecDashboard.API.Data
             : base(options)
         {
         }
+
+
     }
 }

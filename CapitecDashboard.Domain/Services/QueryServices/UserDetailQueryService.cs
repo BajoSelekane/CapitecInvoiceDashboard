@@ -31,9 +31,10 @@ namespace CapitecDashboard.Domain.Services.QueryServices
             var transformedData = new UserDetailResponse
             {
                 Id = data.Id,
-                CustomerId = data.CustomerId,
-                InvoiceId = data.InvoiceId.ToString(),
-                PaymentId = data.PaymentId,
+                ProvinceId = data.ProvinceId,
+                DistrictId = data.DistrictId,
+                SubDistrictId = data.SubDistrictId,
+                FacilityId = data.FacilityId,
                 UserId = data.UserId,
             };
 
@@ -57,9 +58,10 @@ namespace CapitecDashboard.Domain.Services.QueryServices
                 mappedData.Add(new UserDetailListResponse
                 {
                     Id = item.Id,
-                    CustomerId = item.CustomerId,
-                    InvoiceId = item.InvoiceId.ToString(),
-                    PaymentId = item.PaymentId,
+                    ProvinceId = item.ProvinceId,
+                    DistrictId = item.DistrictId,
+                    SubDistrictId = item.SubDistrictId,
+                    FacilityId = item.FacilityId,
                     UserId = item.UserId,
                 });
             }
@@ -67,6 +69,11 @@ namespace CapitecDashboard.Domain.Services.QueryServices
             response.CodeStatus = ResponseStatus.Success;
 
             return response;
+        }
+
+        public ObjectResponse<UserDetailResponse> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,14 +10,14 @@ namespace CapitecDashboard.Domain.Entities
 {
     public class UserDetail : BaseEntity
     {
-        public string CustomerId { get; set; } = string.Empty;
-        public Customer? Customer { get; set; }
-        public Guid InvoiceId { get; set; } 
-        public Invoice? Invoice { get; set; }
-        public string PaymentId { get; set; } = string.Empty;
-         public Payment? Payment { get; set; }
-        public decimal AmountPaid {  get; set; }
-        public InvoiceItem? InvoiceItem { get; set; }
+        public string ProvinceId { get; set; } = string.Empty;
+        public Province? Province { get; set; }
+        public string DistrictId { get; set; } = string.Empty;
+        public District? District { get; set; }
+        public string SubDistrictId { get; set; } = string.Empty;
+        public SubDistrict? SubDistrict { get; set; }
+        public string FacilityId { get; set; } = string.Empty;
+        public Facility? Facility { get; set; }
         public string UserId { get; set; }
 
         public static UserDetail Create(UserDetailRequest request)
@@ -28,13 +28,12 @@ namespace CapitecDashboard.Domain.Entities
                 UpdatedAt = DateTime.Now,
                 CreatedBy = request.UserId,
                 UpdatedBy = request.UserId,
-                UserId = request.UserId,
-                InvoiceId = request.InvoiceId,
-                CustomerId = request.CustomerId,
-                AmountPaid = request.AmountPaid
+                UserId = request.UserDetailId,
+                ProvinceId = request.ProvinceId,
+                DistrictId = request.DistrictId,
+                SubDistrictId = request.SubDistrictId,
+                FacilityId = request.FacilityId,
             };
         }
-
-       
     }
 }

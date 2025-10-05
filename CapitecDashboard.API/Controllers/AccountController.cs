@@ -34,48 +34,48 @@ namespace CapitecDashboard.API.Controllers
         }
 
 
-        [HttpGet("filter")]
-        public IActionResult Filter([FromQuery] UserFilter request)
-        {
-            var res = authenticateService.Filter(request);
-            return Ok(res);
-        }
+        //[HttpGet("filter")]
+        //public IActionResult Filter([FromQuery] UserFilter request)
+        //{
+        //    var res = authenticateService.Filter(request);
+        //    return Ok(res);
+        //}
 
-        [HttpPost("create-role")]
-        public async Task<IActionResult> AddRole([FromBody] RoleRequest request)
-        {
-            var res = await authenticateService.CreateNewRole(request);
-            return Ok(res);
-        }
+        //[HttpPost("create-role")]
+        //public async Task<IActionResult> AddRole([FromBody] RoleRequest request)
+        //{
+        //    var res = await authenticateService.CreateNewRole(request);
+        //    return Ok(res);
+        //}
 
-        [HttpPost("add-user-role")]
-        public async Task<IActionResult> AddUserToRole([FromBody] RoleAddRequest request)
-        {
-            var res = await authenticateService.AddUserToRole(request);
-            return Ok(res);
-        }
+        //[HttpPost("add-user-role")]
+        //public async Task<IActionResult> AddUserToRole([FromBody] RoleAddRequest request)
+        //{
+        //    var res = await authenticateService.AddUserToRole(request);
+        //    return Ok(res);
+        //}
 
-        [HttpPost("remove-role")]
-        public async Task<IActionResult> RemoveRole([FromBody] RoleDeleteRequest request)
-        {
-            var res = await authenticateService.RemoveUserRole(request);
-            return Ok(res);
-        }
+        //[HttpPost("remove-role")]
+        //public async Task<IActionResult> RemoveRole([FromBody] RoleDeleteRequest request)
+        //{
+        //    var res = await authenticateService.RemoveUserRole(request);
+        //    return Ok(res);
+        //}
 
        
 
-        [HttpPost("assign-user-to-facility")]
-        public IActionResult AssignUserToFacility([FromBody] UserFacilityRequest request)
-        {
-            var res = authenticateService.AssignUserToFacility(request);
-            return Ok(res);
-        }
+        //[HttpPost("assign-user-to-facility")]
+        //public IActionResult AssignUserToFacility([FromBody] UserFacilityRequest request)
+        //{
+        //    var res = authenticateService.AssignUserToFacility(request);
+        //    return Ok(res);
+        //}
 
-        [HttpPost("save-user-detail")]
-        public IActionResult SaveUserDetail([FromBody] UserDetailRequest request)
-        {
-            var res = authenticateService.SaveUserDetail(request);
-            return Ok(res);
-        }
+        //[HttpPost("save-user-detail")]
+        //public IActionResult SaveUserDetail([FromBody] UserDetailRequest request)
+        //{
+        //    var res = authenticateService.SaveUserDetail(request);
+        //    return Ok(res);
+        //}
     }
 }

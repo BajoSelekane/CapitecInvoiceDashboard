@@ -18,7 +18,7 @@ namespace CapitecDashboard.Domain.Entities
 
         public DateTime IssueDate { get; set; } = DateTime.UtcNow;
         public DateTime DueDate { get; set; }
-        public InvoiceStatus Status { get; set; } = InvoiceStatus.Pending;
+       // public InvoiceStatus Status { get; set; } = InvoiceStatus.Pending;
 
 
         [Column(TypeName = "decimal(18,2)")]

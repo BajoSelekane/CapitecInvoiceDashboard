@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CapitecDashboard.Domain.Models.Request.Filters
 {
-    public class UserFacilityFilter : BaseFilter
+    public class FacilityFilter : BaseFilter
     {
-        public long? FacilityId { get; set; }
+        public string? SubDistrictId { get; set; }
     }
 }

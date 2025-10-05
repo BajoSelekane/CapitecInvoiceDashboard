@@ -20,7 +20,7 @@ namespace CapitecDashboard.Domain.Mapper
                 CustomerId = item.CustomerId,
                 IssueDate = item.IssueDate,
                 DueDate = item.DueDate,
-                Status = item.Status,
+                //Status = item.Status,
                 SubTotal = item.SubTotal,
                 TaxAmount = item.TaxAmount,
                 Total = item.Total,

@@ -31,8 +31,8 @@ namespace CapitecDashboard.Domain.Services
         private readonly ILogger<AuthenticateService> logger;
         private readonly IConfiguration configuration;
         private readonly UserStore<User> userStore;
-      //  private readonly IUserFacilityCommandService userFacilityCommandService;
-       // private readonly IQueryRepository<UserFacility, UserFacilityFilter> userFacilityQueryRepository;
+       // private readonly IUserFacilityCommandService userFacilityCommandService;
+        //private readonly IQueryRepository<UserFacility, UserFacilityFilter> userFacilityQueryRepository;
         private readonly IEmailService emailService;
         private readonly IUserDetailCommandService userDetailCommandService;
         private readonly IQueryRepository<UserDetail, UserDetailFilter> userDetailQueryRepository;
@@ -40,10 +40,10 @@ namespace CapitecDashboard.Domain.Services
 
         // private readonly UserStore<User> userStore;
 
-        public AuthenticateService(UserManager<User> userManager,  
+        public AuthenticateService(UserManager<User> userManager, IQueryRepository<UserFacility, UserFacilityFilter> userFacilityQueryRepository,
             IConfiguration configuration, SignInManager<User> signInManager,
             ILogger<AuthenticateService> logger, UserStore<User> userStore, RoleManager<Role> roleManager,
-           
+            IUserFacilityCommandService userFacilityCommandService,
             IEmailService emailService, IQueryRepository<UserDetail, UserDetailFilter> userDetailQueryRepository,
             IUserDetailCommandService userDetailCommandService)
         {
@@ -53,7 +53,8 @@ namespace CapitecDashboard.Domain.Services
             this.configuration = configuration;
             this.userStore = userStore;
             this.roleManager = roleManager;
-           
+            //this.userFacilityCommandService = userFacilityCommandService;
+            //this.userFacilityQueryRepository = userFacilityQueryRepository;
             this.emailService = emailService;
             this.userDetailQueryRepository = userDetailQueryRepository;
             this.userDetailCommandService = userDetailCommandService;
@@ -206,11 +207,11 @@ namespace CapitecDashboard.Domain.Services
         {
             ObjectResponse<UserResponse> response = new ObjectResponse<UserResponse>();
 
-            string customerId = null;
-            Guid invoiceId;
-            string PaymentId = null;
-            double amountPaid = 0.00;
-            DateTime duedate = DateTime.UtcNow;
+            string provinceId = null;
+            string districtId = null;
+            string subDistrictId = null;
+            string facilityId = null;
+            string operationId = null;
 
             try
             {
@@ -280,28 +281,47 @@ namespace CapitecDashboard.Domain.Services
                 }
 
 
-               
+                //if (request.FacilityId != null)
+                //{
+                //    UserFacilityRequest userFacilityRequest = new UserFacilityRequest
+                //    {
+                //        UserId = user.Id,
+                //        Id = Guid.NewGuid().ToString(),
+                //        FacilityId = request.FacilityId,
+                //        FacilityUserId = user.Id
+                //    };
 
-                if (request.CustomerId != null)
-                {
-                    customerId = request.CustomerId;
-                }
+                //    userFacilityCommandService.Add(userFacilityRequest);
+                //}
 
-                if (request.InvoiceId != null)
-                {
-                    invoiceId = (Guid)request.InvoiceId;
-                }
+                //if (request.ProvinceId != null)
+                //{
+                //    provinceId = request.ProvinceId;
+                //}
 
-                if (request.PaymentId != null)
-                {
-                    PaymentId = request.PaymentId.ToString();
-                }
+                //if (request.DistrictId != null)
+                //{
+                //    districtId = request.DistrictId;
+                //}
 
-              
-                else
-                {
-                    customerId = null;
-                }
+                //if (request.SubDistrictId != null)
+                //{
+                //    subDistrictId = request.SubDistrictId;
+                //}
+
+                //if (request.FacilityId != null)
+                //{
+                //    facilityId = request.FacilityId;
+                //}
+
+                //if (request.OperationId != null)
+                //{
+                //    operationId = request.OperationId;
+                //}
+                //else
+                //{
+                //    operationId = null;
+                //}
 
 
 
@@ -311,10 +331,12 @@ namespace CapitecDashboard.Domain.Services
                     {
                         UserId = user.Id,
                         Id = Guid.NewGuid().ToString(),
-                        CustomerId = customerId,
-                        
-                       
-                        
+                        ProvinceId = provinceId,
+                        DistrictId = districtId,
+                        SubDistrictId = subDistrictId,
+                        FacilityId = facilityId,
+                        OperationId = operationId,
+                        UserDetailId = user.Id
                     };
 
                     userDetailCommandService.Add(userDetailRequest);
@@ -342,177 +364,187 @@ namespace CapitecDashboard.Domain.Services
             return response;
         }
 
-        public async Task<BaseResponse> RemoveUserRole(RoleDeleteRequest request)
-        {
-            var response = new ObjectResponse<UserResponse>();
+        //public async Task<BaseResponse> RemoveUserRole(RoleDeleteRequest request)
+        //{
+        //    var response = new ObjectResponse<UserResponse>();
 
 
-            var role = await roleManager.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
-            var user = await userManager.Users.FirstOrDefaultAsync(x => x.Id == request.UserId);
+        //    var role = await roleManager.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
+        //    var user = await userManager.Users.FirstOrDefaultAsync(x => x.Id == request.UserId);
 
-            if (role == null)
-            {
-                response.Message = "Failed to remove this role from this user.";
-                response.CodeStatus = ResponseStatus.Fail;
+        //    if (role == null)
+        //    {
+        //        response.Message = "Failed to remove this role from this user.";
+        //        response.CodeStatus = ResponseStatus.Fail;
 
-                return response;
-            }
+        //        return response;
+        //    }
 
-            var res = await userManager.RemoveFromRoleAsync(user, role.Name);
+        //    var res = await userManager.RemoveFromRoleAsync(user, role.Name);
 
-            if (!res.Succeeded)
-            {
-                response.Message = "Failed to remove this role from this user.";
-                response.CodeStatus = ResponseStatus.Fail;
-            }
+        //    if (!res.Succeeded)
+        //    {
+        //        response.Message = "Failed to remove this role from this user.";
+        //        response.CodeStatus = ResponseStatus.Fail;
+        //    }
 
-            //response.Data = userRes;
-            response.CodeStatus = Enums.ResponseStatus.Success;
+        //    //response.Data = userRes;
+        //    response.CodeStatus = Enums.ResponseStatus.Success;
 
-            return response;
-        }
+        //    return response;
+        //}
 
-        public async Task<BaseResponse> AddUserToRole(RoleAddRequest request)
-        {
-            var response = new ObjectResponse<UserResponse>();
-
-
-            var role = await roleManager.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
-            var user = await userManager.Users.FirstOrDefaultAsync(x => x.Id == request.UserId);
-
-            var res = await userManager.AddToRoleAsync(user, role.Name);
-
-            if (!res.Succeeded)
-            {
-                response.Message = "Failed to add this role to the user.";
-                response.CodeStatus = ResponseStatus.Fail;
-            }
-
-            //response.Data = userRes;
-            response.CodeStatus = Enums.ResponseStatus.Success;
-
-            return response;
-        }
-
-        public async Task<ObjectResponse<UserResponse>> Update(UserRequest request)
-        {
-            ObjectResponse<UserResponse> response = new ObjectResponse<UserResponse>();
-
-            string customerId = null;
-            Guid invoiceId;
-            Guid PaymentId ;
-            double amountPaid = 0.00;
-            DateTime duedate = DateTime.UtcNow;
-
-            try
-            {
-                var user = await userManager
-                    .Users
-                    .Include(x => x.UserRoles)
-                    .ThenInclude(x => x.Role)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id);
-
-                if (user == null)
-                {
-                    response.Message = "User was not found";
-                    response.CodeStatus = ResponseStatus.Fail;
-
-                    return response;
-                }
-
-                user.FirstName = request.FirstName.Trim();
-                user.LastName = request.LastName.Trim();
-                user.UserName = request.Email.Trim();
-                user.PhoneNumber = request.Phone.Trim();
-                user.Email = request.Email.Trim();
-                user.EmailConfirmed = true;
+        //public async Task<BaseResponse> AddUserToRole(RoleAddRequest request)
+        //{
+        //    var response = new ObjectResponse<UserResponse>();
 
 
-                var updateRes = await userManager.UpdateAsync(user);
+        //    var role = await roleManager.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
+        //    var user = await userManager.Users.FirstOrDefaultAsync(x => x.Id == request.UserId);
 
-                if (!updateRes.Succeeded)
-                {
-                    string message = "Failed to create user, please try again.";
+        //    var res = await userManager.AddToRoleAsync(user, role.Name);
 
-                    if (updateRes.Errors != null && updateRes.Errors.Any())
-                    {
-                        StringBuilder stringBuilder = new StringBuilder();
+        //    if (!res.Succeeded)
+        //    {
+        //        response.Message = "Failed to add this role to the user.";
+        //        response.CodeStatus = ResponseStatus.Fail;
+        //    }
 
-                        foreach (var error in updateRes.Errors)
-                        {
-                            stringBuilder.AppendLine(error.Description);
-                        }
+        //    //response.Data = userRes;
+        //    response.CodeStatus = Enums.ResponseStatus.Success;
 
-                        message = stringBuilder.ToString();
-                    }
+        //    return response;
+        //}
 
-                    response.Message = message;
-                    response.CodeStatus = ResponseStatus.Fail;
-                    return response;
-                }
+        //public async Task<ObjectResponse<UserResponse>> Update(UserRequest request)
+        //{
+        //    ObjectResponse<UserResponse> response = new ObjectResponse<UserResponse>();
 
-                var roles = roleManager.Roles.ToList();
+        //    string provinceId = null;
+        //    string districtId = null;
+        //    string subDistrictId = null;
+        //    string facilityId = null;
+        //    string operationId = null;
 
-                if (request.Roles != null && request.Roles.Count() > 0)
-                {
-                    foreach (var roleId in request.Roles)
-                    {
-                        var role = roles.FirstOrDefault(x => x.Id == roleId);
-                        var addRoleResult = await userManager.AddToRoleAsync(user, role.Id);
-                    }
-                }
+        //    try
+        //    {
+        //        var user = await userManager
+        //            .Users
+        //            .Include(x => x.UserRoles)
+        //            .ThenInclude(x => x.Role)
+        //            .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                if (request.CustomerId != null)
-                {
-                    customerId = request.CustomerId;
-                }
+        //        if (user == null)
+        //        {
+        //            response.Message = "User was not found";
+        //            response.CodeStatus = ResponseStatus.Fail;
 
-                if (request.InvoiceId != null)
-                {
-                    invoiceId = (Guid)request.InvoiceId;
-                }
+        //            return response;
+        //        }
 
-                if (request.PaymentId != null)
-                {
-                    PaymentId = (Guid)request.PaymentId;
-                }
-
-               
-                else
-                {
-                    customerId = null;
-                }
-
-                var userData = userDetailQueryRepository.GetAll().Where(x => x.UserId == user.Id).ToList();
-                if (userData != null)
-                {
-                    var xUser = new UserDetailRequest
-                    {
-                        UserId = user.Id,
-                        Id = userData[0].Id,
-                        CustomerId = customerId,
-                        
+        //        user.FirstName = request.FirstName.Trim();
+        //        user.LastName = request.LastName.Trim();
+        //        user.UserName = request.Email.Trim();
+        //        user.PhoneNumber = request.Phone.Trim();
+        //        user.Email = request.Email.Trim();
+        //        user.EmailConfirmed = true;
 
 
-                    };
+        //        var updateRes = await userManager.UpdateAsync(user);
 
-                    userDetailCommandService.Edit(xUser);
-                }
+        //        if (!updateRes.Succeeded)
+        //        {
+        //            string message = "Failed to create user, please try again.";
+
+        //            if (updateRes.Errors != null && updateRes.Errors.Any())
+        //            {
+        //                StringBuilder stringBuilder = new StringBuilder();
+
+        //                foreach (var error in updateRes.Errors)
+        //                {
+        //                    stringBuilder.AppendLine(error.Description);
+        //                }
+
+        //                message = stringBuilder.ToString();
+        //            }
+
+        //            response.Message = message;
+        //            response.CodeStatus = ResponseStatus.Fail;
+        //            return response;
+        //        }
+
+        //        var roles = roleManager.Roles.ToList();
+
+        //        if (request.Roles != null && request.Roles.Count() > 0)
+        //        {
+        //            foreach (var roleId in request.Roles)
+        //            {
+        //                var role = roles.FirstOrDefault(x => x.Id == roleId);
+        //                var addRoleResult = await userManager.AddToRoleAsync(user, role.Id);
+        //            }
+        //        }
+
+        //        if (request.ProvinceId != null)
+        //        {
+        //            provinceId = request.ProvinceId;
+        //        }
+
+        //        if (request.DistrictId != null)
+        //        {
+        //            districtId = request.DistrictId;
+        //        }
+
+        //        if (request.SubDistrictId != null)
+        //        {
+        //            subDistrictId = request.SubDistrictId;
+        //        }
+
+        //        if (request.FacilityId != null)
+        //        {
+        //            facilityId = request.FacilityId;
+        //        }
+
+        //        if (request.OperationId != null)
+        //        {
+        //            operationId = request.OperationId;
+        //        }
+        //        else
+        //        {
+        //            operationId = null;
+        //        }
+
+        //        var userData = userDetailQueryRepository.GetAll().Where(x => x.UserId == user.Id).ToList();
+        //        if (userData != null)
+        //        {
+        //            var xUser = new UserDetailRequest
+        //            {
+        //                UserId = user.Id,
+        //                Id = userData[0].Id,
+        //                ProvinceId = provinceId,
+        //                DistrictId = districtId,
+        //                SubDistrictId = subDistrictId,
+        //                FacilityId = facilityId,
+        //                OperationId = operationId,
+        //                UserDetailId = user.Id
+        //            };
+
+        //            userDetailCommandService.Edit(xUser);
+        //        }
 
 
-                response.CodeStatus = ResponseStatus.Success;
-                response.Message = "You have been updated successfully.";
+        //        response.CodeStatus = ResponseStatus.Success;
+        //        response.Message = "You have been updated successfully.";
 
-            }
-            catch (Exception ex)
-            {
-                response.CodeStatus = ResponseStatus.Fail;
-                response.Message = "An exception has occured trying to register user, please try again later.";
-                logger.LogError(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.CodeStatus = ResponseStatus.Fail;
+        //        response.Message = "An exception has occured trying to register user, please try again later.";
+        //        logger.LogError(ex.Message);
+        //    }
 
-            return response;
-        }
+        //    return response;
+        //}
 
         //public BaseResponse AssignUserToFacility(UserFacilityRequest request)
         //{
@@ -545,36 +577,36 @@ namespace CapitecDashboard.Domain.Services
         //    return baseResponse;
         //}
 
-        public BaseResponse SaveUserDetail(UserDetailRequest request)
-        {
-            var baseResponse = new BaseResponse();
+        //public BaseResponse SaveUserDetail(UserDetailRequest request)
+        //{
+        //    var baseResponse = new BaseResponse();
 
-            try
-            {
-                var userDetail = userDetailQueryRepository
-                    .GetAll()
-                    .FirstOrDefault(x => x.UserId == request.Id);
+        //    try
+        //    {
+        //        var userDetail = userDetailQueryRepository
+        //            .GetAll()
+        //            .FirstOrDefault(x => x.UserId == request.UserDetailId);
 
-                if (userDetail != null)
-                {
-                    return new BaseResponse
-                    {
-                        CodeStatus = ResponseStatus.Fail,
-                        Message = "This detail has already assigned to this user."
-                    };
-                }
+        //        if (userDetail != null)
+        //        {
+        //            return new BaseResponse
+        //            {
+        //                CodeStatus = ResponseStatus.Fail,
+        //                Message = "This detail has already assigned to this user."
+        //            };
+        //        }
 
-                userDetail = UserDetail.Create(request);
-                baseResponse = userDetailCommandService.Create(userDetail);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-            }
+        //        userDetail = UserDetail.Create(request);
+        //        baseResponse = userDetailCommandService.Create(userDetail);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.LogError(ex.Message);
+        //    }
 
 
-            return baseResponse;
-        }
+        //    return baseResponse;
+        //}
 
         private void SendEmail(string emailAddress, string name, string password)
         {
@@ -589,11 +621,6 @@ namespace CapitecDashboard.Domain.Services
                 $"Hi {name} you've been registered on {systemName}, you can follow this " +
                 $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>link</a> to login to the system. <br> <br>Here are your credentials username: {emailAddress} and password: {password}<br> <br>");
             this.emailService.Send(email);
-        }
-
-        public BaseResponse AssignUserToFacility(UserFacilityRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }
