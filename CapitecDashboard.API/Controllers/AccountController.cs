@@ -11,12 +11,12 @@ namespace CapitecDashboard.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticateService authenticateService;
-       // private readonly IUserFacilityQueryService userFacilityQueryService;
+       
         public AccountController(IAuthenticateService authenticateService)
-           // IUserFacilityQueryService userFacilityQueryService)
+          
         {
             this.authenticateService = authenticateService;
-            //this.userFacilityQueryService = userFacilityQueryService;
+           
         }
 
         [HttpPost("login")]

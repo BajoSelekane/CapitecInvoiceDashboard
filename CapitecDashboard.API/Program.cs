@@ -14,6 +14,9 @@ using CapitecDashboard.Infrastructure.Extensions;
 using CapitecDashboard.Infrastructure.Repositories.BaseRepositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +71,33 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// JWT Authentication
+var jwtSection = builder.Configuration.GetSection("Jwt");
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.GetValue<string>("Key")));
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = true;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSection.GetValue<string>("Issuer"),
+            ValidAudience = jwtSection.GetValue<string>("Audience"),
+            IssuerSigningKey = signingKey
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 
 // Configure the HTTP request pipeline.
 if (builder.Build().Environment.IsDevelopment())
@@ -75,12 +105,17 @@ if (builder.Build().Environment.IsDevelopment())
     builder.Build().MapOpenApi();
 }
 
-builder.Build().UseHttpsRedirection();
+var app = builder.Build();
 
-builder.Build().UseAuthorization();
-builder.Build().UseRouting();
-builder.Build().UseAuthorization();
+app.UseCors(policy => policy
+    .WithOrigins("https://localhost:7028", "http://localhost:5001")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials());
 
-builder.Build().MapControllers();
-
-builder.Build().Run();
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();

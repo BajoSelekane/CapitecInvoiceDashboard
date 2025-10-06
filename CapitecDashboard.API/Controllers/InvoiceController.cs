@@ -42,5 +42,19 @@ namespace CapitecDashboard.API.Controllers
             return Ok(res);
         }
 
+        [HttpGet("Filter")]
+        public IActionResult Filter([FromQuery] InvoiceFilter filter)
+        {
+            var response = _invoiceQueryService.Filter(filter);
+            return Ok(response);
+        }
+
+        [HttpGet("Get-By-Id")] 
+        public IActionResult GetById([FromQuery] string id)
+        {
+            var response = _invoiceQueryService.Get(id);
+            return Ok(response);
+        }
+
     }
 }

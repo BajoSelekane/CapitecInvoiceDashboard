@@ -99,6 +99,33 @@ namespace CapitecDashboard.Domain.Services
 
                 };
 
+                
+                var issuer = configuration.GetValue<string>("Jwt:Issuer");
+                var audience = configuration.GetValue<string>("Jwt:Audience");
+                var key = configuration.GetValue<string>("Jwt:Key");
+                var expiresMinutes = configuration.GetValue<int>("Jwt:ExpiresMinutes");
+                var signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(key));
+
+                var claims = new List<System.Security.Claims.Claim>
+                {
+                    new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.NameIdentifier, user.Id ?? string.Empty),
+                    new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, user.UserName ?? string.Empty),
+                    new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, user.Email ?? string.Empty)
+                };
+                foreach (var role in roles)
+                {
+                    claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role));
+                }
+
+                var creds = new Microsoft.IdentityModel.Tokens.SigningCredentials(signingKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256);
+                var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
+                    issuer: issuer,
+                    audience: audience,
+                    claims: claims,
+                    expires: DateTime.UtcNow.AddMinutes(expiresMinutes),
+                    signingCredentials: creds);
+                data.Token = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().WriteToken(token);
+
                 response.Data = data;
                 response.CodeStatus = ResponseStatus.Success;
             }
