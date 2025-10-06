@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapitecDashboard.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapitecDashboard.API", "CapitecDashboard.API\CapitecDashboard.API.csproj", "{A60889D4-261E-4C0C-AFC6-F9E01D283C45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapitecDashboard.Presen", "CapitecDashboard.Presen\CapitecDashboard.Presen.csproj", "{8FA6810E-882E-40B6-8F85-5F08C94E9E53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A60889D4-261E-4C0C-AFC6-F9E01D283C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A60889D4-261E-4C0C-AFC6-F9E01D283C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A60889D4-261E-4C0C-AFC6-F9E01D283C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA6810E-882E-40B6-8F85-5F08C94E9E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA6810E-882E-40B6-8F85-5F08C94E9E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA6810E-882E-40B6-8F85-5F08C94E9E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA6810E-882E-40B6-8F85-5F08C94E9E53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

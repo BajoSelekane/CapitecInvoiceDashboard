@@ -2,12 +2,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSession();
-builder.Services.AddHttpClient<CapitecDashboard.Presen.Services.ApiClient>(client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7287/");
-});
 
 var app = builder.Build();
 
@@ -22,7 +16,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseSession();
 app.UseAuthorization();
 
 app.MapStaticAssets();
