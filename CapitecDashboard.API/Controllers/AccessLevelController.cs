@@ -1,4 +1,5 @@
-﻿using CapitecDashboard.Domain.Interfaces.Services.QueryService;
+﻿using CapitecDashboard.Domain.Interfaces.Services.CommandService;
+using CapitecDashboard.Domain.Interfaces.Services.QueryService;
 using CapitecDashboard.Domain.Models.Request;
 using CapitecDashboard.Domain.Models.Request.Filters;
 using CapitecDashboard.Domain.Services.CommandServices;

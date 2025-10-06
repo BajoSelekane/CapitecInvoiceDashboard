@@ -10,6 +10,7 @@ namespace CapitecDashboard.Domain.Entities
     public class AccessLevel : BaseEntity
     {
         public string Name { get; set; }
+        public string UserId { get; internal set; }
 
         public static AccessLevel Create(AccessLevelRequest request)
         {

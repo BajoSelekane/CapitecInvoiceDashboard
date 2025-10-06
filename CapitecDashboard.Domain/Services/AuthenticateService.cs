@@ -34,18 +34,16 @@ namespace CapitecDashboard.Domain.Services
        // private readonly IUserFacilityCommandService userFacilityCommandService;
         //private readonly IQueryRepository<UserFacility, UserFacilityFilter> userFacilityQueryRepository;
         private readonly IEmailService emailService;
-        private readonly IUserDetailCommandService userDetailCommandService;
-        private readonly IQueryRepository<UserDetail, UserDetailFilter> userDetailQueryRepository;
-
+     
 
         // private readonly UserStore<User> userStore;
 
         public AuthenticateService(UserManager<User> userManager, IQueryRepository<UserFacility, UserFacilityFilter> userFacilityQueryRepository,
             IConfiguration configuration, SignInManager<User> signInManager,
             ILogger<AuthenticateService> logger, UserStore<User> userStore, RoleManager<Role> roleManager,
-            IUserFacilityCommandService userFacilityCommandService,
-            IEmailService emailService, IQueryRepository<UserDetail, UserDetailFilter> userDetailQueryRepository,
-            IUserDetailCommandService userDetailCommandService)
+            IUserFacilityCommandService userFacilityCommandService)
+            //IEmailService emailService, IQueryRepository<UserDetail, UserDetailFilter> userDetailQueryRepository,
+            //IUserDetailCommandService userDetailCommandService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -53,11 +51,8 @@ namespace CapitecDashboard.Domain.Services
             this.configuration = configuration;
             this.userStore = userStore;
             this.roleManager = roleManager;
-            //this.userFacilityCommandService = userFacilityCommandService;
-            //this.userFacilityQueryRepository = userFacilityQueryRepository;
             this.emailService = emailService;
-            this.userDetailQueryRepository = userDetailQueryRepository;
-            this.userDetailCommandService = userDetailCommandService;
+        
         }
 
         public async Task<ObjectResponse<UserResponse>> Login(LoginRequest request)
@@ -325,22 +320,22 @@ namespace CapitecDashboard.Domain.Services
 
 
 
-                if (request.FirstName != null)
-                {
-                    UserDetailRequest userDetailRequest = new UserDetailRequest
-                    {
-                        UserId = user.Id,
-                        Id = Guid.NewGuid().ToString(),
-                        ProvinceId = provinceId,
-                        DistrictId = districtId,
-                        SubDistrictId = subDistrictId,
-                        FacilityId = facilityId,
-                        OperationId = operationId,
-                        UserDetailId = user.Id
-                    };
+                //if (request.FirstName != null)
+                //{
+                //    UserDetailRequest userDetailRequest = new UserDetailRequest
+                //    {
+                //        UserId = user.Id,
+                //        Id = Guid.NewGuid().ToString(),
+                //        ProvinceId = provinceId,
+                //        DistrictId = districtId,
+                //        SubDistrictId = subDistrictId,
+                //        FacilityId = facilityId,
+                //        OperationId = operationId,
+                //        UserDetailId = user.Id
+                //    };
 
-                    userDetailCommandService.Add(userDetailRequest);
-                }
+                //    userDetailCommandService.Add(userDetailRequest);
+                //}
 
 
                 response.CodeStatus = ResponseStatus.Success;

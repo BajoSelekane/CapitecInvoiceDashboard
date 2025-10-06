@@ -62,7 +62,7 @@ namespace CapitecDashboard.API.Controllers
         //    return Ok(res);
         //}
 
-       
+
 
         //[HttpPost("assign-user-to-facility")]
         //public IActionResult AssignUserToFacility([FromBody] UserFacilityRequest request)

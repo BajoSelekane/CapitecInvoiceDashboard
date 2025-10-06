@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CapitecDashboard.Domain.Models.Request.Filters
 {
-    public class UserFilter
+    public class UserFilter : BaseFilter
     {
     }
 }

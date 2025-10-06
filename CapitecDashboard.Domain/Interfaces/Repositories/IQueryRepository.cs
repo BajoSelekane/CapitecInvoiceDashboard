@@ -9,6 +9,6 @@ namespace CapitecDashboard.Domain.Interfaces.Repositories
 
         IQueryable<Ent> Filter(Fil filter);
         Ent GetById(string id);
-        //IQueryable<Ent> GetAll();
+        IQueryable<Ent> GetAll();
     }
 }

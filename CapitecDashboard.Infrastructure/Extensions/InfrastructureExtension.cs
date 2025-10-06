@@ -58,8 +58,8 @@ namespace CapitecDashboard.Infrastructure.Extensions
            
             services.AddTransient<ICommandRepository<ApplicationProperty>, CommandRepository<ApplicationProperty>>();
           
-            services.AddTransient<ICommandRepository<AccessLevel>, CommandRepository<AccessLevel>>();
-            services.AddTransient<ICommandRepository<UserDetail>, CommandRepository<UserDetail>>();
+            services.AddTransient<ICommandRepository<Invoice>, CommandRepository<Invoice>>();
+            //services.AddTransient<ICommandRepository<UserDetail>, CommandRepository<UserDetail>>();
 
 
 
@@ -72,7 +72,7 @@ namespace CapitecDashboard.Infrastructure.Extensions
            // services.AddTransient<IQueryRepository<ApplicationProperty, ApplicationPropertyFilter>, ApplicationPropertyQueryRepository>();
           
             services.AddTransient<IQueryRepository<AccessLevel, AccessLevelFilter>, AccessLevelQueryRepository>();
-            services.AddTransient<IQueryRepository<UserDetail, UserDetailFilter>>();
+           // services.AddTransient<IQueryRepository<UserDetail, UserDetailFilter>>();
 
 
             return services;

@@ -8,7 +8,7 @@ namespace CapitecDashboard.Domain.Entities
         public string ProgramDataId { get; set; }
       //  public ProgramData ProgramData { get; set; }
         public string? AccessLevelId { get; set; }
-        public AccessLevel? AccessLevel { get; set; }
+        public Invoice? AccessLevel { get; set; }
 
         public Role(string name, string programDataId, string accessLevelId)
         {

@@ -41,5 +41,20 @@ namespace CapitecDashboard.Infrastructure.Repositories
               .FirstOrDefault(x => x.Id == id && x.Status == EntityStatus.Active);
             return entity;
         }
+
+        IQueryable<AccessLevel> IQueryRepository<AccessLevel, AccessLevelFilter>.Filter(AccessLevelFilter filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //IQueryable<AccessLevel> IQueryRepository<AccessLevel, AccessLevelFilter>.GetAll()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        AccessLevel IQueryRepository<AccessLevel, AccessLevelFilter>.GetById(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

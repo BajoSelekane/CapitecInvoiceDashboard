@@ -17,14 +17,7 @@ namespace CapitecDashboard.Domain.Mapper
         {
             return new InvoiceListResponse
             {
-                CustomerId = item.CustomerId,
-                IssueDate = item.IssueDate,
-                DueDate = item.DueDate,
-                //Status = item.Status,
-                SubTotal = item.SubTotal,
-                TaxAmount = item.TaxAmount,
-                Total = item.Total,
-                AmountPaid = item.AmountPaid,
+                CustomerId = item.CustomerId    
                 
             };
         }

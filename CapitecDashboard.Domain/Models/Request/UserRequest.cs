@@ -21,17 +21,13 @@ namespace CapitecDashboard.Domain.Models.Request
         public string Email { get; set; }
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number.")]
         public string Phone { get; set; }
-        public string? CustomerId { get; set; }
-        public List<string> Customer { get; set; }
-        public Guid? InvoiceId { get; set; }
-        public List<string> Invoice { get; set; }
-        public Guid? PaymentId { get; set; }
-        public List<string> Payment { get; set; }
-        public List<string>InvoiceItem { get; set; }
+        public Invoice Invoice { get; set; }
+        public string InvoiceId {  get; set; }
         public List<string> Roles { get; set; }
         public string RoleId { get; set; }
+        public List<string> ProgramData { get; set; }
+        public string ProgramDataId { get; set; }
         public string? Password { get; set; }
-
         public ICollection<Invoice?> Invoices { get; set; }
         public ICollection<InvoiceItem?> InvoiceItems { get; set; }
         public InvoiceStatus? Status { get; set; }

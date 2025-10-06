@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CapitecDashboard.Domain.Models.Request.Filters
 {
-    public class InvoiceFilter:BaseFilter
+    public class InvoiceFilter :BaseFilter
     {
+        
     }
 }

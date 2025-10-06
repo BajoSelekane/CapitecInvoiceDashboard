@@ -29,7 +29,8 @@ namespace CapitecDashboard.Domain.Extensions
         {
           
             services.AddTransient<IAccessLevelCommandService, AccessLevelCommandService>();
-            services.AddTransient<IUserDetailCommandService, UserDetailCommandService>();
+           // services.AddTransient<IUserDetailCommandService, UserDetailCommandService>();
+            services.AddTransient<IInvoiceCommandService, InvoiceCommandService>();
 
 
             return services;
@@ -38,7 +39,8 @@ namespace CapitecDashboard.Domain.Extensions
         {
            
             services.AddTransient<IAccessLevelQueryService, AccessLevelQueryService>();
-            services.AddTransient<IUserDetailQueryService, UserDetailQueryService>();
+           // services.AddTransient<IUserDetailQueryService, UserDetailQueryService>();
+            services.AddTransient<IInvoiceQueryService, InvoiceQueryService>();
 
 
             return services;
