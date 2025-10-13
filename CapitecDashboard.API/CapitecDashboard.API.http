@@ -1,6 +1,6 @@
 @CapitecDashboard.API_HostAddress = http://localhost:5116
 
-GET {{CapitecDashboard.API_HostAddress}}/weatherforecast/
+GET {{CapitecDashboard.API_HostAddress}}
 Accept: application/json
 
 ###
