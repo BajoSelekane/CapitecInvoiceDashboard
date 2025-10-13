@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using CapitecDashboard.API.Data.DbContexts;
+using CapitecDashboard.API.Data.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Entity Framework services
+builder.Services.AddDbContext<InvoiceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
